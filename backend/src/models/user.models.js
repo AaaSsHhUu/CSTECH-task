@@ -48,8 +48,6 @@ userSchema.methods.isPasswordCorrect = async function (enteredPassword) {
 };
 
 userSchema.methods.generateAuthToken = function () {
-    console.log(process.env.ACCESS_TOKEN_SECRET);
-
     const token = jwt.sign(
         {
             id: this._id,
