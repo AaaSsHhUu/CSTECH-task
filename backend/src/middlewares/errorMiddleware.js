@@ -1,9 +1,12 @@
 const errorMiddleware = (err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    message: 'Internal Server Error',
-    error: process.env.NODE_ENV === 'development' ? err.message : {}
-  });
-}
+    console.log(err.stack);
+    const statusCode = err.statusCode || 500;
+    const message = err.message || "Internal Server Error";
+    res.status(statusCode).json({
+        success: false,
+        message: message,
+    });
+    next();
+};
 
 export default errorMiddleware;

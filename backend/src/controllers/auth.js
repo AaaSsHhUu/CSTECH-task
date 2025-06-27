@@ -18,7 +18,7 @@ export const signup = asyncHandler(async (req, res, next) => {
         throw new ErrorHandler('User already exists with this email', 409);
     }
 
-    const newUser = await User.create({
+    const newUser = new User({
         name,
         email,
         password,
@@ -38,6 +38,8 @@ export const signup = asyncHandler(async (req, res, next) => {
         maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
+    await newUser.save();
+    
     res.status(201).json({
         success: true,
         message: 'User created successfully',
