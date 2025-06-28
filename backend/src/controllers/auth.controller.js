@@ -1,4 +1,4 @@
-import User from '../models/user.models.js';
+import Agent from '../models/agent.models.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import ErrorHandler from '../utils/ErrorHandler.js';
 
@@ -9,13 +9,13 @@ export const login = asyncHandler(async (req, res, next) => {
         throw new ErrorHandler('Invalid Inputs', 411);
     }
 
-    const user = await User.findOne({ email });
+    const agent = await Agent.findOne({ email });
 
-    const isPasswordCorrect = user
-        ? await user.isPasswordCorrect(password)
+    const isPasswordCorrect = agent
+        ? await agent.isPasswordCorrect(password)
         : false;
 
-    if (!user || !isPasswordCorrect) {
+    if (!agent || !isPasswordCorrect) {
         throw new ErrorHandler('Invalid email or password', 401);
     }
 
@@ -31,12 +31,12 @@ export const login = asyncHandler(async (req, res, next) => {
     res.status(200).json({
         success: true,
         message: 'Login successful',
-        user: {
-            id: user._id,
-            name: user.name,
-            email: user.email,
-            mobile: user.mobile,
-            countryCode: user.countryCode,
+        newAgent: {
+            id: agent._id,
+            name: agent.name,
+            email: agent.email,
+            mobile: agent.mobile,
+            countryCode: agent.countryCode,
         },
     });
 });
