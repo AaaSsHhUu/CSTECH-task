@@ -1,6 +1,6 @@
-import { asyncHandler } from "../utils/asyncHandler";
-import ErrorHandler from "../utils/ErrorHandler";
-import { randomPasswordGenerator } from "../utils/passwordGenerator";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import ErrorHandler from "../utils/ErrorHandler.js";
+import { randomPasswordGenerator } from "../utils/passwordGenerator.js";
 
 export const createAgent = asyncHandler(async (req, res) => {
     const { name, email, mobile, countryCode, role = "agent" } = req.body;

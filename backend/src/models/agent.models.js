@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-const userSchema = new Schema(
+const agentSchema = new Schema(
     {
         name: {
             type: String,
@@ -35,7 +35,7 @@ const userSchema = new Schema(
     { timestamps: true },
 );
 
-userSchema.pre('save', async function (next) {
+agentSchema.pre('save', async function (next) {
     if (this.isModified('password')) {
         this.password = await bcrypt.hash(this.password, 10);
         next();
@@ -43,11 +43,11 @@ userSchema.pre('save', async function (next) {
     return next();
 });
 
-userSchema.methods.isPasswordCorrect = async function (enteredPassword) {
+agentSchema.methods.isPasswordCorrect = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
-userSchema.methods.generateAuthToken = function () {
+agentSchema.methods.generateAuthToken = function () {
     const token = jwt.sign(
         {
             id: this._id,
@@ -62,5 +62,5 @@ userSchema.methods.generateAuthToken = function () {
     return token;
 };
 
-const User = mongoose.model('User', userSchema);
-export default User;
+const Agent = mongoose.model('Agent', agentSchema);
+export default Agent;

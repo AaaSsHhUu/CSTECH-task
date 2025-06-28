@@ -1,6 +1,6 @@
 import express from 'express';
 import { isAuthenticated, isAdmin } from '../middlewares/authMiddleware.js';
-import { createAgent, getAgentById, getAllAgents } from '../controllers/user.controller.js';
+import { createAgent, getAgentById, getAllAgents } from '../controllers/agent.controller.js';
 
 const router = express.Router();
 
