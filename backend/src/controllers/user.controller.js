@@ -1,10 +1,11 @@
 import { asyncHandler } from "../utils/asyncHandler";
 import ErrorHandler from "../utils/ErrorHandler";
+import { randomPasswordGenerator } from "../utils/passwordGenerator";
 
 export const createAgent = asyncHandler(async (req, res) => {
-    const { name, email, password, mobile, countryCode } = req.body;
+    const { name, email, mobile, countryCode, role = "agent" } = req.body;
 
-    if ([name, email, password, mobile, countryCode].some(field => field?.trim() === '')) {
+    if ([name, email, mobile, countryCode, role].some(field => field?.trim() === '')) {
         throw new ErrorHandler("Invalid Inputs", 411);
     }
 
@@ -13,13 +14,15 @@ export const createAgent = asyncHandler(async (req, res) => {
         throw new ErrorHandler("User already exists with this email", 409);
     }
 
+    const password = randomPasswordGenerator();
+
     const newUser = new User({
         name,
         email,
         password,
         mobile,
         countryCode,
-        role: 'agent'
+        role
     });
 
     if (!newUser) {
@@ -27,6 +30,9 @@ export const createAgent = asyncHandler(async (req, res) => {
     }
 
     await newUser.save();
+    
+    // send password to the user via email
+    await sendEmail(email, password);
 
     res.status(201).json({
         success: true,
