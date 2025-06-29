@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser";
 // Import routes
 import authRoutes from "./routes/auth.routes.js";
 import agentRoutes from "./routes/agent.routes.js";
+import uploadRoutes from "./routes/uploads.routes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,7 @@ app.use(cookieParser());
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/agent", agentRoutes);
+app.use("/api/v1/file", uploadRoutes);
 
 app.use(errorMiddleware);
 
