@@ -5,6 +5,7 @@ import cors from "cors";
 import connectDB from "./utils/db.js";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
 import cookieParser from "cookie-parser";
+import morgan from 'morgan';
 
 // Import routes
 import authRoutes from "./routes/auth.routes.js";
@@ -14,7 +15,11 @@ import uploadRoutes from "./routes/uploads.routes.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+    origin : process.env.FRONTEND_URL,
+    credentials : true
+}));
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
