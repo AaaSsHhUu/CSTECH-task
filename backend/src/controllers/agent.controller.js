@@ -106,3 +106,14 @@ export const deleteAgent = asyncHandler(async (req, res) => {
         message: "Agent deleted successfully"
     });
 });
+
+export const getLoggedInUser = asyncHandler(async (req, res) => {
+    if(!req.user){
+        throw new ErrorHandler("Please Login First");
+    }
+
+    res.status(200).json({
+        success : true,
+        user : req.user
+    })
+})

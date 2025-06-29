@@ -40,7 +40,7 @@ agentSchema.pre('save', async function (next) {
         this.password = await bcrypt.hash(this.password, 10);
         next();
     }
-    return next();
+    else return next();
 });
 
 agentSchema.methods.isPasswordCorrect = async function (enteredPassword) {

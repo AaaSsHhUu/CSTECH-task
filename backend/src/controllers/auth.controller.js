@@ -4,7 +4,6 @@ import ErrorHandler from '../utils/ErrorHandler.js';
 
 export const login = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
-
     if ([email, password].some((field) => field?.trim() === '')) {
         throw new ErrorHandler('Invalid Inputs', 411);
     }
@@ -37,6 +36,7 @@ export const login = asyncHandler(async (req, res, next) => {
             email: agent.email,
             mobile: agent.mobile,
             countryCode: agent.countryCode,
+            role : agent.role
         },
     });
 });
