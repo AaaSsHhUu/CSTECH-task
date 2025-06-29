@@ -11,7 +11,7 @@ const leadSchema = new Schema({
     },
     notes : {
         type: String,
-        required: true,
+        required: false,
     },
     assignedTo: {
         type: mongoose.Schema.Types.ObjectId,
