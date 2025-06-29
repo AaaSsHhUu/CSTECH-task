@@ -53,6 +53,7 @@ agentSchema.methods.generateAuthToken = function () {
             id: this._id,
             email: this.email,
             name: this.name,
+            role : this.role
         },
         process.env.ACCESS_TOKEN_SECRET,
         {
