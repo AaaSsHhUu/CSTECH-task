@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+body{
+    @apply bg-gray-100
+}
+/* 
+src/
+├── assets/                # Static assets like logos, images, icons
+├── components/            # Reusable UI components (Buttons, Inputs, Navbar)
+│   ├── Button.jsx
+│   ├── FileUpload.jsx
+│   ├── AgentCard.jsx
+│   └── ...
+├── pages/                 # Main pages/screens
+│   ├── Login.jsx
+│   ├── Dashboard.jsx
+│   ├── CreateAgent.jsx
+│   ├── UploadLeads.jsx
+│   └── ViewLeads.jsx
+├── services/              # API call helpers (axios functions)
+│   ├── authService.js
+│   ├── agentService.js
+│   ├── leadService.js
+│   └── uploadService.js
+├── contexts/              # React Contexts (e.g., AuthContext)
+│   └── AuthContext.jsx
+├── hooks/                 # Custom hooks
+│   └── useAuth.js
+├── utils/                 # Utility functions (formatters, validators)
+│   └── validators.js
+├── routes/                # App routing setup (React Router)
+│   └── AppRoutes.jsx
+├── App.jsx                # Main App component
+├── main.jsx               # Vite entry point
+└── styles/                # Global or shared CSS/Tailwind configs
+    ├── tailwind.css
+    └── index.css */
