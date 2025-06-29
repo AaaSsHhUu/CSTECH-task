@@ -19,7 +19,7 @@ export const login = asyncHandler(async (req, res, next) => {
         throw new ErrorHandler('Invalid email or password', 401);
     }
 
-    const token = user.generateAuthToken();
+    const token = agent.generateAuthToken();
 
     res.cookie('accessToken', token, {
         httpOnly: true,
