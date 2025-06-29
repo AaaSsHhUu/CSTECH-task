@@ -3,9 +3,11 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Eye, EyeOff } from 'lucide-react';
 import {toast} from "sonner";
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
     const {register, handleSubmit, formState: { errors }} = useForm();
 
@@ -26,6 +28,7 @@ function Login() {
             console.log('login res - ', res);
             if(res.data.success){
                 toast.success(res.data.message || "Login successfull")
+                navigate("/");
             }
         } catch (error) {
             console.log("login error - ", error);
