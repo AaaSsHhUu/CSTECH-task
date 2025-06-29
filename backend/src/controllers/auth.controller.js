@@ -1,4 +1,4 @@
-import Agent from '../models/agent.models.js';
+import Agent from '../models/agent.model.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import ErrorHandler from '../utils/ErrorHandler.js';
 
