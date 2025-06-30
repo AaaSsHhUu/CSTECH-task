@@ -32,7 +32,7 @@ export const login = asyncHandler(async (req, res, next) => {
     res.status(200).json({
         success: true,
         message: 'Login successful',
-        newAgent: {
+        user: {
             id: agent._id,
             name: agent.name,
             email: agent.email,

@@ -12,7 +12,7 @@ function Login() {
 
     const {register, handleSubmit, formState: { errors }} = useForm();
 
-    const {user} = useAuth();
+    const {user, setUser} = useAuth();
     if(user){
         navigate("/");
         return ;
@@ -35,7 +35,8 @@ function Login() {
             console.log('login res - ', res);
             if(res.data.success){
                 toast.success(res.data.message || "Login successfull")
-                navigate("/");
+                setUser(res.data.user);
+                return navigate("/");
             }
         } catch (error) {
             console.log("login error - ", error);

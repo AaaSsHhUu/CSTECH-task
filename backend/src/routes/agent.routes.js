@@ -14,5 +14,5 @@ router.get("/:id", isAuthenticated, getAgentById);
 
 router.delete("/:id", isAuthenticated, isAdmin, deleteAgent);
 
-router.get("/leads/:id", isAuthenticated, isAdmin, getAgentLeads);
+router.get("/leads/:id", isAuthenticated, getAgentLeads);
 export default router;
