@@ -9,7 +9,8 @@ function Header() {
     const handleLogout = async () => {
         try {
             const res = await axios.post(
-                `${import.meta.env.VITE_BACKEND_URL}/agent/logout`,
+                `${import.meta.env.VITE_BACKEND_URL}/auth/logout`,
+                {}, // empty body
                 {
                     withCredentials: true,
                 },

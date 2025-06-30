@@ -91,7 +91,7 @@ const AdminDashboard = () => {
             console.log('file upload res - ', fileUploadRes);
         } catch (error) {
             console.log('error uploading file - ', error);
-            toast.error('File upload failed');
+            toast.error(error.response.data.message || 'File upload failed');
         } finally {
             setUploadFileLoading(false);
             setSelectedFile(null);
