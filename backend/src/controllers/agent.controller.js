@@ -1,4 +1,5 @@
 import Agent from "../models/agent.model.js";
+import Lead from "../models/lead.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import ErrorHandler from "../utils/ErrorHandler.js";
 import { sendEmail } from "../utils/nodemailer.js";
@@ -6,6 +7,7 @@ import { randomPasswordGenerator } from "../utils/passwordGenerator.js";
 
 export const createAgent = asyncHandler(async (req, res) => {
     const { name, email, mobile, countryCode, role = "agent" } = req.body;
+    console.log(req.body)
     if ([name, email, mobile, countryCode, role].some(field => field?.trim() === '')) {
         throw new ErrorHandler("Invalid Inputs", 411);
     }
@@ -116,4 +118,28 @@ export const getLoggedInUser = asyncHandler(async (req, res) => {
         success : true,
         user : req.user
     })
+})
+
+export const getAgentLeads = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+
+    const agent = await Agent.findById(id);
+
+    if (!agent) {
+        throw new ErrorHandler("Agent not found", 404);
+    }
+
+    const leads = await Lead.find({assignedTo : agent._id});
+
+    if(!leads) {
+        throw new ErrorHandler("No leads found for this agent", 404);
+    }
+
+    console.log("leads - ", leads);
+
+    res.status(200).json({
+        success: true,
+        message: "Agent leads retrieved successfully",
+        leads
+    });
 })
