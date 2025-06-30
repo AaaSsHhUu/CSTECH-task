@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post("/create", isAuthenticated, isAdmin, createAgent);
 router.get("/all", isAuthenticated, isAdmin, getAllAgents);
+router.get("/current-user", isAuthenticated, getLoggedInUser);
 router.get("/:id", isAuthenticated, getAgentById);
-router.get("/current-user", isAuthenticated, getLoggedInUser)
 export default router;

@@ -1,6 +1,8 @@
 import Agent from '../models/agent.model.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import ErrorHandler from '../utils/ErrorHandler.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const login = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
@@ -23,7 +25,7 @@ export const login = asyncHandler(async (req, res, next) => {
     res.cookie('accessToken', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'none',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 

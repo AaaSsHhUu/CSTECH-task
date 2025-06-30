@@ -4,12 +4,19 @@ import { useForm } from 'react-hook-form';
 import { Eye, EyeOff } from 'lucide-react';
 import {toast} from "sonner";
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const {register, handleSubmit, formState: { errors }} = useForm();
+
+    const {user} = useAuth();
+    if(user){
+        navigate("/");
+        return ;
+    }
 
     const onSubmit = async (credentials) => {
         if(!credentials.email || !credentials.password){
