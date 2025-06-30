@@ -3,30 +3,38 @@ import axios from "axios";
 
 const AuthContext = createContext({
     user : null,
-    setUser : () => {}
+    setUser : () => {},
+    loading : true
 })
 
 export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchLoggedInUser = async () => {
-            const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/agent/current-user`, {
-                withCredentials: true
-            });
-            console.log("res : ", res);
-            if(res.data.success){
-                setUser(res.data.user);
+            try {
+                const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/agent/current-user`, {
+                    withCredentials: true
+                });
+                console.log("res : ", res);
+                if(res.data.success){
+                    setUser(res.data.user);
+                    setLoading(false);
+                }
+            } catch (error) {
+                setUser(null);
+            }
+            finally{
+                setLoading(false);
             }
         }
 
-        fetchLoggedInUser().catch(err => {
-            console.error("Error fetching logged in user: ", err);
-        });
+        fetchLoggedInUser();
     },[])
 
     return (
-        <AuthContext.Provider value={{user, setUser}}>
+        <AuthContext.Provider value={{user, setUser, loading}}>
             {children}
         </AuthContext.Provider>
     )
